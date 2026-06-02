@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Redirecting...</title>
+  <script>
+    const code = window.location.pathname.replace("/", "");
+    if (code) {
+      window.location.replace(`https://shareshuffle.com/share.html?id=${code}`);
+    } else {
+      window.location.replace("https://shareshuffle.com");
+    }
+  </script>
+</head>
+<body>
+  Redirecting to ShareShuffle...
+</body>
+</html>
