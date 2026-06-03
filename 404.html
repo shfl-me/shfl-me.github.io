@@ -4,15 +4,30 @@
   <meta charset="utf-8">
   <title>Redirecting...</title>
   <script>
-    const code = window.location.pathname.replace("/", "");
-    if (code) {
-      window.location.replace(`https://shareshuffle.com/share.html?id=${code}`);
-    } else {
+    const path = window.location.pathname.replace(/^\/+/, "").trim();
+
+    const shelfSlugs = [
+      "bass",
+      "bass-gear",
+      "kitchen",
+      "route-66",
+      "gift-ideas",
+      "church-tech",
+      "rich",
+      "jo",
+      "charlie"
+    ];
+
+    if (!path) {
       window.location.replace("https://shareshuffle.com");
+    } else if (shelfSlugs.includes(path.toLowerCase())) {
+      window.location.replace(`https://shelfmix.com/${path}`);
+    } else {
+      window.location.replace(`https://shareshuffle.com/share.html?id=${path}`);
     }
   </script>
 </head>
 <body>
-  Redirecting to ShareShuffle...
+  Redirecting...
 </body>
 </html>
