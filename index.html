@@ -11,11 +11,24 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/icons/icon512.png">
   <title>Redirecting...</title>
   <script>
-    const code = window.location.pathname.replace("/", "");
-    if (code) {
-      window.location.replace(`https://shareshuffle.com/share.html?id=${code}`);
-    } else {
+    const path = window.location.pathname.replace(/^\/+/, "").trim();
+    const parts = path.split("/").filter(Boolean);
+
+    if (!path) {
       window.location.replace("https://shareshuffle.com");
+    } else if (parts[0] === "u" && parts.length >= 4) {
+      // Temporary username path:
+      // /u/rich/bass/a2c4e -> the final segment is still the share id.
+      const id = parts[parts.length - 1];
+      window.location.replace(`https://shareshuffle.com/share.html?id=${encodeURIComponent(id)}`);
+    } else if (parts[0] === "u" && parts.length >= 3) {
+      // Temporary shelf route:
+      // /u/rich/bass -> route to shelf slug for now.
+      const shelfSlug = parts[2];
+      window.location.replace(`https://shareshuffle.com/shelf.html?s=${encodeURIComponent(shelfSlug)}`);
+    } else {
+      const code = parts[0];
+      window.location.replace(`https://shareshuffle.com/share.html?id=${encodeURIComponent(code)}`);
     }
   </script>
 </head>

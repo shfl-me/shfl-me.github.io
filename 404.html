@@ -11,6 +11,7 @@
   <title>Redirecting...</title>
   <script>
     const path = window.location.pathname.replace(/^\/+/, "").trim();
+    const parts = path.split("/").filter(Boolean);
 
     const shelfSlugs = [
       "bass",
@@ -26,10 +27,16 @@
 
     if (!path) {
       window.location.replace("https://shareshuffle.com");
-    } else if (shelfSlugs.includes(path.toLowerCase())) {
-      window.location.replace(`https://shelfmix.com/${path}`);
+    } else if (parts[0] === "u" && parts.length >= 4) {
+      const id = parts[parts.length - 1];
+      window.location.replace(`https://shareshuffle.com/share.html?id=${encodeURIComponent(id)}`);
+    } else if (parts[0] === "u" && parts.length >= 3) {
+      const shelfSlug = parts[2];
+      window.location.replace(`https://shareshuffle.com/shelf.html?s=${encodeURIComponent(shelfSlug)}`);
+    } else if (shelfSlugs.includes(parts[0].toLowerCase())) {
+      window.location.replace(`https://shareshuffle.com/shelf.html?s=${encodeURIComponent(parts[0])}`);
     } else {
-      window.location.replace(`https://shareshuffle.com/share.html?id=${path}`);
+      window.location.replace(`https://shareshuffle.com/share.html?id=${encodeURIComponent(parts[0])}`);
     }
   </script>
 </head>
