@@ -16,6 +16,16 @@
 
     if (!path) {
       window.location.replace("https://shareshuffle.com");
+    } else if (parts[0]?.startsWith("@") && parts.length >= 3) {
+      // Temporary @handle route:
+      // /@rich/bass/a2c4e -> final segment is still the share id.
+      const id = parts[parts.length - 1];
+      window.location.replace(`https://shareshuffle.com/share.html?id=${encodeURIComponent(id)}`);
+    } else if (parts[0]?.startsWith("@") && parts.length >= 2) {
+      // Temporary @handle shelf route:
+      // /@rich/bass -> route to shelf slug for now.
+      const shelfSlug = parts[1];
+      window.location.replace(`https://shareshuffle.com/shelf.html?s=${encodeURIComponent(shelfSlug)}`);
     } else if (parts[0] === "u" && parts.length >= 4) {
       // Temporary username path:
       // /u/rich/bass/a2c4e -> the final segment is still the share id.
