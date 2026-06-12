@@ -34,9 +34,10 @@
       window.location.replace(`https://shareshuffle.com/share.html?id=${encodeURIComponent(id)}`);
     } else if (parts[0]?.startsWith("@") && parts.length >= 2) {
       // Temporary @handle shelf route:
-      // /@rich/bass -> route to shelf slug for now.
+      // /@rich/bass -> preserve both handle and shelf.
+      const handle = parts[0].replace(/^@+/, "");
       const shelfSlug = parts[1];
-      window.location.replace(`https://shareshuffle.com/shelf.html?s=${encodeURIComponent(shelfSlug)}`);
+      window.location.replace(`https://shareshuffle.com/shelf.html?u=${encodeURIComponent(handle)}&s=${encodeURIComponent(shelfSlug)}`);
     } else if (parts[0] === "u" && parts.length >= 4) {
       const id = parts[parts.length - 1];
       window.location.replace(`https://shareshuffle.com/share.html?id=${encodeURIComponent(id)}`);
